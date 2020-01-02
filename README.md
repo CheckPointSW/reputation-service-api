@@ -16,7 +16,6 @@
     - [Response](#ReputationService-Response)
         - [Response Status Codes](#ReputationService-ResponseStatusCodes)
     - [Risk Threshold Guide](#ReputationService-RiskThresholdGuide)
-  - [Examples](TODO Link for inner examples)
 
 # **Overview**
 
