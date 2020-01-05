@@ -6,3 +6,5 @@ python/reputation_service_API_client.egg-info/
 python/venv/
 python/api/__pycache__/
 python/api/utils/__pycache__/
+java/*.iml
+java/target/
