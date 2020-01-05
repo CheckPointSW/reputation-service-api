@@ -40,7 +40,7 @@ public class ReputationClient {
     }
 
     public void run() {
-        logger.log(Level.FINE, "first, let's get token fro rep-auth");
+        logger.log(Level.FINE, "first, let's get token from rep-auth");
         // first let's get the token
         client.sendAsync(HttpRequest.newBuilder()
                                     .GET()

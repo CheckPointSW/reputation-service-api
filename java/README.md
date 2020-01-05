@@ -49,7 +49,7 @@ Usage: <main class> [options]
 
 ```
 # java -jar reputation-service-api-client-1.0.0.jar -s ip -r 8.8.8.8 -ck <client-key> -v
-first, let's get token fro rep-auth
+first, let's get token from rep-auth
 success!
 now, let's query reputation
 success!
@@ -90,7 +90,7 @@ your response is:
 ```
 ```
 # java -jar reputation-service-api-client-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key> -v
-  first, let's get token fro rep-auth
+  first, let's get token from rep-auth
   success!
   now, let's query reputation
   success!

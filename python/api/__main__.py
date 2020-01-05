@@ -19,7 +19,7 @@ def main(service, resource, client_key, verbose):
         logger = get_logger(__name__, logging.DEBUG)
     else:
         logger = get_logger(__name__)
-    logger.debug('first, let\'s get token fro rep-auth')
+    logger.debug('first, let\'s get token from rep-auth')
     token_res = requests.get('https://rep.checkpoint.com/rep-auth/service/v1.0/request',
                              headers={'Client-Key': client_key})
     if token_res.status_code != 200:
