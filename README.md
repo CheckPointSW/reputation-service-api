@@ -19,80 +19,71 @@
 
 # **Overview**
 
-the reputation service currently supports request for URLs, IP and
-files.
+Reputation Service currently supports request for URLs, IP and files.
 
-for using the reputation service first get a token that is valid for a
-week from the rep-auth service, and then send a request to the
-reputation service using that token in the request.
+Before using the reputation service first get a token that is valid for a week from the rep-auth service, and then send a request to the reputation service using that token in the request.
 
 # APIs
 
 ## **Rep-Auth Service**
 
-Authentication to the reputation service  acquires using a token
-generated from the rep-auth service.
+Authentication to the reputation service  acquires using a token generated from the rep-auth service.
 
-The token will expire after a week, to renew the authentication - send a
-new token request.
+The token will expire after a week, to renew the authentication - send a new token request.
 
-the token should look like this: `exp=1578566241~acl=/*~hmac=95add7c04faa2e7831b451fd45503e4a2ac0598c7e84a5ace7dd611d7b483e5f`
+The token should look like this: `exp=1578566241~acl=/*~hmac=95add7c04faa2e7831b451fd45503e4a2ac0598c7e84a5ace7dd611d7b483e5f`
 
 ### **How to generate a token**?
 
-Send an HTTPS GET
-request: https://rep.checkpoint.com/rep-auth/service/v1.0/request
+Send an HTTPS GET request: https://rep.checkpoint.com/rep-auth/service/v1.0/request
 
 Use the "Client-Key" header. (otherwise you will get HTTP status 401)
 
-**how do I know that the token expired?**
+**How do I know that the token expired?**
 
-service HTTP response code 403 Forbidden
+Service respond status code 403 Forbidden
 
 ## **URL Reputation Service**
 
 ### Request
 
-Send an HTTPS POST
-request: https://rep.checkpoint.com/url-rep/service/v2.0/query?resource=http://google.com/aaa
+Send an HTTPS POST request: https://rep.checkpoint.com/url-rep/service/v2.0/query?resource={url}
 
-request headers: 
+Request headers: 
 
   - "Client-Key":  You authorization id.
-
   - "token": the token from the rep-auth service.
 
-request body, use JSON format:
-
+Request body, use JSON format:
  
 ```js
 {
-	"request": [{
-		"resource": "http://google.com/aaa"
-	}]
+    "request": [{
+        "resource": "{url}"
+    }]
 }
 ```
 
-| **parameter name** | **type**                                                                                         | **is optional** | **default value** | **description**                |
-| ------------------ | ------------------------------------------------------------------------------------------------ | --------------- | ----------------- | ------------------------------ |
-| resource           | String                                                                                           | no              |                   | the URL to query about         |
+| **Parameter Name** | **Type** | **is Optional** | **Description**                |
+| ------------------ | -------- | --------------- | ------------------------------ |
+| resource           | String   | No              | the URL to query about         |
 
 ### **URL classifications**
 
 | **Classification**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Severity** |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Unclassified        | the service couldn't classify the domain. there is no enough data about this resource.                                                                                                                                                                                                                                                                                                                                                                     | N/A          |
-| Adware              | website operating in the gray areas of the law collecting private data on the users and display unwanted content, or website which contains sub-application to download.                                                                                                                                                                                                                                                                                   | Low          |
-| Volatile Website    | website that contains malicious software, for example: hacking websites.                                                                                                                                                                                                                                                                                                                                                                                   | Medium       |
-| Benign              | legit website, which aren't serve any malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                                   | N/A          |
-| CnC Server          | command and controller of malware.                                                                                                                                                                                                                                                                                                                                                                                                                         | Critical     |
-| Compromised Website | legit website that was hacked and now serve a malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                           | High         |
-| Phishing            | websites that attempt to obtain [sensitive information](https://en.wikipedia.org/wiki/Information_sensitivity) such as usernames, passwords, and [credit card](https://en.wikipedia.org/wiki/Credit_card) details (and sometimes, indirectly, [money](https://en.wikipedia.org/wiki/Money)), often for malicious reasons, by masquerading as a trustworthy entity in an [electronic communication](https://en.wikipedia.org/wiki/Electronic_communication) | High         |
-| Infecting Website   | website that may infect it’s visitors with malware.                                                                                                                                                                                                                                                                                                                                                                                                        | High         |
+| Unclassified        | The service couldn't classify the domain. there is no enough data about this resource.                                                                                                                                                                                                                                                                                                                                                                     | N/A          |
+| Adware              | Website operating in the gray areas of the law collecting private data on the users and display unwanted content, or website which contains sub-application to download.                                                                                                                                                                                                                                                                                   | Low          |
+| Volatile Website    | Website that contains malicious software, for example: hacking websites.                                                                                                                                                                                                                                                                                                                                                                                   | Medium       |
+| Benign              | Legit website, which aren't serve any malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                                   | N/A          |
+| CnC Server          | Command and controller of malware.                                                                                                                                                                                                                                                                                                                                                                                                                         | Critical     |
+| Compromised Website | Legit website that was hacked and now serve a malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                           | High         |
+| Phishing            | Websites that attempt to obtain [sensitive information](https://en.wikipedia.org/wiki/Information_sensitivity) such as usernames, passwords, and [credit card](https://en.wikipedia.org/wiki/Credit_card) details (and sometimes, indirectly, [money](https://en.wikipedia.org/wiki/Money)), often for malicious reasons, by masquerading as a trustworthy entity in an [electronic communication](https://en.wikipedia.org/wiki/Electronic_communication) | High         |
+| Infecting Website   | Website that may infect it’s visitors with malware.                                                                                                                                                                                                                                                                                                                                                                                                        | High         |
 | Infecting URL       | URL that may infect it’s visitors with malware.                                                                                                                                                                                                                                                                                                                                                                                                            |              |
-| Web Hosting         | websites that allows to rent out space for websites to have your business in.                                                                                                                                                                                                                                                                                                                                                                              | Medium       |
-| File Hosting        | websites that allows to rent out space for storage to have your business in.                                                                                                                                                                                                                                                                                                                                                                               | Medium       |
-| Parked              | website which permanently does not have a content. it may contains advertising content on pages that have been registered but do not yet have original content                                                                                                                                                                                                                                                                                             | Medium       |
+| Web Hosting         | Websites that allows to rent out space for websites to have your business in.                                                                                                                                                                                                                                                                                                                                                                              | Medium       |
+| File Hosting        | Websites that allows to rent out space for storage to have your business in.                                                                                                                                                                                                                                                                                                                                                                               | Medium       |
+| Parked              | Website which permanently does not have a content. it may contains advertising content on pages that have been registered but do not yet have original content                                                                                                                                                                                                                                                                                             | Medium       |
 | Spam                | The url is used for spam.                                                                                                                                                                                                                                                                                                                                                                                                                                  | High         |
 | Cryptominer         | The url is used for cryptomining.                                                                                                                                                                                                                                                                                                                                                                                                                          | High         |
 
@@ -100,39 +91,37 @@ request body, use JSON format:
 
 ### Request
 
-Send an HTTPS POST
-request: https://rep.checkpoint.com/file-rep/service/v2.0/query?resource=71b6bb5acbf16ec9bdaf949fc347ba18
+Send an HTTPS POST request: https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}
 
 request headers: 
 
   - "Client-Key":  You authorization id.
-
   - "token": the token from the rep-auth service.
 
 request body, use JSON format:
 
 ```js
 {
-	"request": [{
-		"resource": "71b6bb5acbf16ec9bdaf949fc347ba18"
-	}]
+    "request": [{
+       "resource": "{file-hash}"
+    }]
 }
 ```
 
-| **parameter name** | **type**                                                                                         | **is optional** | **default value** | **description**                          |
-| ------------------ | ------------------------------------------------------------------------------------------------ | --------------- | ----------------- | ---------------------------------------- |
-| resource           | String                                                                                           | no              |                   | SHA256 / MD5 / SHA1 of the file to query about. |
+| **Parameter Name** | **Type** | **Is Optional** | **Description**                          |
+| ------------------ | -------- | --------------- | ---------------------------------------- |
+| resource           | String   | No              | SHA256 / MD5 / SHA1 of the file to query |
 
 ### **File classifications**
 
 | **Classification** | **Description**                                                                                                                                                                                                                                                                                                      | **Severity** |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Unclassified       | the service couldn't classify the domain. there is no enough data about this resource.                                                                                                                                                                                                                               | N/A          |
-| Adware             | Installation file of Adware on your machine.Adware is a form of software that downloads or displays unwanted ads when a user is online, collects marketing data and other information without the user's knowledge or redirects search requests to certain advertising websites                                      | Low          |
+| Unclassified       | The service couldn't classify the domain. there is no enough data about this resource.                                                                                                                                                                                                                               | N/A          |
+| Adware             | Installation file of Adware on your machine. Adware is a form of software that downloads or displays unwanted ads when a user is online, collects marketing data and other information without the user's knowledge or redirects search requests to certain advertising websites                                      | Low          |
 | Riskware           | Riskware is the name given to legitimate programs that can cause damage if they are exploited by malicious users – in order to delete, block, modify, or copy data, and disrupt the performance of computers or networks. | Medium       |
 | Malware            | Malicious file                                                                                                                                                                                                                                                                                                       | High         |
-| Benign             | legitfile, whicharen'tserveany malicious purpose.                                                                                                                                                                                                                                                                    | Medium       |
-| Unknown            | file that was never seen before by the service's vendors.                                                                                                                                                                                                                                                            | N/A          |
+| Benign             | Legit file, which aren't serve any malicious purpose.                                                                                                                                                                                                                                                                    | Medium       |
+| Unknown            | File that was never seen before by the service's vendors.                                                                                                                                                                                                                                                            | N/A          |
 | Spam               | The file is used for spam.                                                                                                                                                                                                                                                                                           | High         |
 | Cryptominer        | The file is used for cryptomining.                                                                                                                                                                                                                                                                                   | High         |
 
@@ -140,28 +129,26 @@ request body, use JSON format:
 
 ### Request
 
-Send an HTTPS POST
-request: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource=8.8.8.8
+Send an HTTPS POST request: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource={ip}
 
 request headers: 
 
   - "Client-Key":  You authorization id.
-
   - "token": the token from the **rep-auth** service.
 
 request body, use JSON format:
 
 ```js
 {
-	"request": [{
-		"resource": "8.8.8.8"
-	}]
+    "request": [{
+        "resource": "{ip}"
+    }]
 }
 ```
 
-| **parameter name** | **type**                                                                                         | **is optional** | **default value** | **description**                |
-| ------------------ | ------------------------------------------------------------------------------------------------ | --------------- | ----------------- | ------------------------------ |
-| resource           | String                                                                                           | no              |                   | the URL to query about         |
+| **Parameter Name** | **Type** | **Is Optional** | **Description** |
+| ------------------ | -------- | --------------- | --------------- |
+| resource           | String   | No              | The IP to query |
 
 ### **IP classifications**
 
@@ -190,20 +177,20 @@ request body, use JSON format:
 <table>
 <thead>
 <tr class="header">
-<th><strong>attribute name</strong></th>
-<th><strong>type</strong></th>
-<th><strong>is optional</strong></th>
-<th><strong>description</strong></th>
-<th><strong>inner attribute</strong></th>
-<th><strong>inner attribute description</strong></th>
+<th><strong>Attribute Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Is Optional</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Inner Attribute</strong></th>
+<th><strong>Inner Attribute Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>status</td>
 <td>Object</td>
-<td>no</td>
-<td>reflect the application status</td>
+<td>No</td>
+<td>Reflect the application status</td>
 <td><ul>
 <li><p>code</p></li>
 <li><p>label</p></li>
@@ -221,16 +208,16 @@ message: No available vendors</p>
 <tr class="even">
 <td>resource</td>
 <td>String</td>
-<td>no</td>
-<td>the URL from the request</td>
+<td>No</td>
+<td>The URL from the request</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>reputation</td>
 <td>Object</td>
-<td>no</td>
-<td>reputation meta-data</td>
+<td>No</td>
+<td>Reputation meta-data</td>
 <td>classification</td>
 <td></td>
 </tr>
@@ -240,8 +227,8 @@ message: No available vendors</p>
 <td></td>
 <td></td>
 <td>severity</td>
-<td>the severity of the classification.<br/>
-possible values:
+<td>The severity of the classification.<br/>
+Possible values:
 <ul>
 <li>N/A</li>
 <li>Low</li>
@@ -256,8 +243,8 @@ possible values:
 <td></td>
 <td></td>
 <td>confidence</td>
-<td><p>how much the service is confidence with the reputation response.<br/>
-possible values:</p>
+<td><p>How much the service is confident with the reputation response.<br/>
+Possible values:</p>
 <ul>
 <li>N/A</li>
 <li>Low</li>
@@ -270,23 +257,23 @@ possible values:</p>
 
 ## **Response Status Codes**
 
-| **HTTP Response Code** | **Explanation**                                                                                                       |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| 200                    | OK                                                                                                                    |
-| 400                    | bad request: either the resource is not valid or the request parameter doesn't match the resource in the request body |
-| 401                    | bad or missing "Client-Key" header                                                                                    |
-| 403                    | bad or missing "token" header                                                                                         |
+| **HTTP Response Code** | **Description**                                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 200                    | OK                                                                                                                     |
+| 400                    | Bad request - either the resource is not valid or the request parameter doesn't match the resource in the request body |
+| 401                    | Bad or missing "Client-Key" header                                                                                     |
+| 403                    | Bad or missing "token" header                                                                                          |
 
 # **Risk Threshold Guide**
 
-| **Risk Range**     | **Description**                                                                                                                            | **Confidence**  | **Severity**  |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------- |
-| Risk=0           | Indications of a legit website                                                                                                             | High            | N/A           |
+| **Risk Range** | **Description**                                                                                                                            | **Confidence**  | **Severity**  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------- |
+| Risk=0         | Indications of a legit website                                                                                                             | High            | N/A           |
 | 0\<Risk\<10    | Internet long tail                                                                                                                         | Low/Medium      | Low           |
 | 10\<=Risk\<50  | Adware servers, rouge popups URLs                                                                                                          | Low/Medium/High | Low/Medium    |
-| Risk=50          | Anonymizers, hosting and parked websites, Unknown files                                                                                    | Medium/High     | Medium        |
-| 50\<Risk\< 80   | No proven legit was activity witnessed by the resource                                                                                     | Low             | High/Critical |
+| Risk=50        | Anonymizers, hosting and parked websites, Unknown files                                                                                    | Medium/High     | Medium        |
+| 50\<Risk\< 80  | No proven legit was activity witnessed by the resource                                                                                     | Low             | High/Critical |
 | 80\<=Risk\<100 | No proven legit was activity witnessed by the resource and there are circumstantial evidences that ties the resource to malicious activity | Medium          | High/Critical |
-| Risk=100         | known malicious resource by at least one trusted vendors                                                                                   | High            | High/Critical |
+| Risk=100       | Known malicious resource by at least one trusted vendors                                                                                   | High            | High/Critical |
 
 #
