@@ -9,12 +9,12 @@ The jar prints to screen the result of the resource.
 mvn install
 ```
 
-The *jar* will be in `target/reputation-service-api-client-x.y.z.jar` where `x.y.z` is the version number.
+The *jar* will be in `target/reputation-service-api-x.y.z.jar` where `x.y.z` is the version number.
 
 ## Usage
 
 ```
-# java -jar reputation-service-api-client-1.0.0.jar --help
+# java -jar reputation-service-api-1.0.0.jar --help
 Usage: <main class> [options]
   Options:
   * -ck, --client-key
@@ -36,19 +36,19 @@ Usage: <main class> [options]
 ### Simple use
 
 ```
-# java -jar reputation-service-api-client-1.0.0.jar -s ip -r 8.8.8.8 -ck <client-Key>
+# java -jar reputation-service-api-1.0.0.jar -s ip -r 8.8.8.8 -ck <client-Key>
 8.8.8.8 is Benign with risk 0/100
 ```
 
 ```
-# java -jar reputation-service-api-client-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key>
+# java -jar reputation-service-api-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key>
   https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ is Phishing with risk 100/100
 ```
 
 ### With `--verbose`
 
 ```
-# java -jar reputation-service-api-client-1.0.0.jar -s ip -r 8.8.8.8 -ck <client-key> -v
+# java -jar reputation-service-api-1.0.0.jar -s ip -r 8.8.8.8 -ck <client-key> -v
 first, let's get token from rep-auth
 success!
 now, let's query reputation
@@ -89,7 +89,7 @@ your response is:
 8.8.8.8 is Benign with risk 0/100
 ```
 ```
-# java -jar reputation-service-api-client-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key> -v
+# java -jar reputation-service-api-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key> -v
   first, let's get token from rep-auth
   success!
   now, let's query reputation
