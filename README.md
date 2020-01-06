@@ -43,9 +43,7 @@ the token should look like this: `exp=1578566241~acl=/*~hmac=95add7c04faa2e7831
 Send an HTTPS GET
 request: https://rep.checkpoint.com/rep-auth/service/v1.0/request
 
-Use the "Client-Key" header. If you don't have a Client-Key, ask for one
-from the Reputation Service team. (otherwise you will get HTTP status
-401)
+Use the "Client-Key" header. (otherwise you will get HTTP status 401)
 
 **how do I know that the token expired?**
 
@@ -60,8 +58,7 @@ request: https://rep.checkpoint.com/url-rep/service/v2.0/query?resource=http://
 
 request headers: 
 
-  - "Client-Key":  If you don't have a Client-Key, ask for one from the
-    reputation service team.
+  - "Client-Key":  You authorization id.
 
   - "token": the token from the rep-auth service.
 
@@ -108,8 +105,7 @@ request: https://rep.checkpoint.com/file-rep/service/v2.0/query?resource=71b6bb
 
 request headers: 
 
-  - "Client-Key":  If you don't have a Client-Key, ask for one from the
-    reputation service team.
+  - "Client-Key":  You authorization id.
 
   - "token": the token from the rep-auth service.
 
@@ -149,8 +145,7 @@ request: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource=8.8.8.8
 
 request headers: 
 
-  - "Client-Key":  If you don't have a Client-Key, ask for one from the
-    reputation service team.
+  - "Client-Key":  You authorization id.
 
   - "token": the token from the **rep-auth** service.
 
