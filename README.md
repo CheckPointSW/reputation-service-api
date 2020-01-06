@@ -63,7 +63,7 @@ request headers: 
   - "Client-Key":  If you don't have a Client-Key, ask for one from the
     reputation service team.
 
-  - "token": the token from the rep-auth service
+  - "token": the token from the rep-auth service.
 
 request body, use JSON format:
 
@@ -111,8 +111,7 @@ request headers: 
   - "Client-Key":  If you don't have a Client-Key, ask for one from the
     reputation service team.
 
-  - "token": the token from the rep-auth service. ** (not relevant
-    for queries from inside the same data-center)**
+  - "token": the token from the rep-auth service.
 
 request body, use JSON format:
 
@@ -153,8 +152,7 @@ request headers: 
   - "Client-Key":  If you don't have a Client-Key, ask for one from the
     reputation service team.
 
-  - "token": the token from the **rep-auth** service  **(not relevant
-    for queries from inside the same data-center)**
+  - "token": the token from the **rep-auth** service.
 
 request body, use JSON format:
 
