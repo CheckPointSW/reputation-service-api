@@ -6,7 +6,7 @@
 
     <groupId>com.checkpoint.reputation</groupId>
     <artifactId>reputation-service-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>reputation-service-api-client</name>
     <url>http://www.checkpoint.com</url>
@@ -66,6 +66,8 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
