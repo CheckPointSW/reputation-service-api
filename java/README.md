@@ -1,7 +1,8 @@
 # Reputation Service - Java Example
 
 Java example for Reputation Service REST API usage.  
-The jar prints to screen the result of the resource.
+The jar prints to screen the result of the resource.  
+The example uses **Java 11**.
 
 ## Install
 
