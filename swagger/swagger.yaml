@@ -1,0 +1,255 @@
+openapi: 3.0.1
+info:
+  title: Reputation Service
+  description: |
+    You can now take control of new Threat Prevention APIs powered by the largest Threat Cloud in the industry:  
+    
+    - **URL Reputation** – for a domain/URL returns the classification and risk in accessing the resource  
+    - **File Reputation** – for a file digest (md5/sha1/sha256) returns the risk in downloading the file without the need to scan it
+    - **IP Reputation**  - for an IP address returns it’s classification and risk in accessing a resource hosted on it
+     
+    All APIs are RESTful, simple to use and can be integrated as part of a SOAR application, home-made application and more!
+  version: 1.0.0
+servers:
+  - url: 'https://rep.checkpoint.com'
+paths:
+  /rep-auth/service/v1.0/request:
+    get:
+      tags:
+        - Auth
+      parameters:
+        - name: Client-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The token to use in reputation
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  '/{service}-rep/service/v2.0/query':
+    post:
+      tags:
+        - Query
+      parameters:
+        - name: Client-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: service
+          in: path
+          description: The service you want to query
+          required: true
+          schema:
+            type: string
+            enum:
+              - url
+              - ip
+              - file
+        - name: resource
+          in: query
+          description: The resource you want to query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReputationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReputationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid Client-Key header
+    BadRequest:
+      description: Bad Request - Check your resource
+    Forbidden:
+      description: Invalid token header
+  schemas:
+    ReputationSingleRequest:
+      properties:
+        resource:
+          type: string
+    ReputationRequest:
+      properties:
+        request:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReputationSingleRequest'
+      required:
+        - request
+    ReputationResponse:
+      properties:
+        risk:
+          type: number
+          example: 0
+        resource:
+          type: string
+          example: 'http://google.com'
+        reputation:
+          $ref: '#/components/schemas/ReputationClassification'
+        status:
+          $ref: '#/components/schemas/ReputationStatus'
+        context:
+          $ref: '#/components/schemas/ReputationResponseContext'
+    ReputationClassification:
+      properties:
+        classification:
+          type: string
+          example: Benign
+        severity:
+          type: string
+          enum:
+            - N/A
+            - Low
+            - Medium
+            - High
+            - Critical
+        Confidence:
+          type: string
+          enum:
+            - Low
+            - Medium
+            - High
+    ReputationStatus:
+      properties:
+        code:
+          type: integer
+          enum:
+            - 2001
+            - 2002
+            - 2003
+        label:
+          type: string
+          enum:
+            - SUCCESS
+            - PARTIAL_SUCCESS
+            - FAILED
+        message:
+          type: string
+          enum:
+            - Succeeded to generate reputation
+            - Some vendors are unavailable
+            - Failed to process
+    ReputationResponseContext:
+      description: 'In parentheses, the service returning the field'
+      type: object
+      properties:
+        asn:
+          type: number
+          description: ASN of the IP (IP)
+        as_owner:
+          type: string
+          description: ASN owner of the IP (IP)
+        safe:
+          type: boolean
+          description: exists and true if certified safe (URL)
+        malware_family:
+          type: string
+          description: the malware family associated with the resource  (URL/FILE/IP)
+        protection_name:
+          type: string
+          description: >-
+            The protection name returned from Malware Service / AntiVirus
+            (URL/FILE)
+        redirections:
+          type: array
+          description: The redirections of the resource (URL)
+          items:
+            type: string
+        malware_types:
+          type: array
+          description: The malware types based on VT scans (FILE)
+          items:
+            type: string
+        categories:
+          type: array
+          description: URLF categories (URL)
+          items:
+            type: string
+        google_safe_browsing_categories:
+          type: array
+          description: Google safe browsing categories (URL)
+          items:
+            type: string
+        location:
+          type: object
+          description: geo location information  (IP)
+          properties:
+            region:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            dma_code:
+              type: integer
+            area_code:
+              type: integer
+            metro_code:
+              type: integer
+        related_resources:
+          type: object
+          description: (FILE)
+          properties:
+            similar_files_found:
+              description: How many similar files found
+              type: number
+            similar_files_details:
+              description: Information about the similar file
+              type: object
+              properties:
+                md5:
+                  type: string
+                ssdeep:
+                  type: string
+                ssdeep_similarity:
+                  type: string
+                file_type:
+                  type: string
+                classification:
+                  type: string
+                malware_family:
+                  type: string
+                confidence:
+                  type: string
+        phishing:
+          type: object
+          description: (URL)
+          properties:
+            brand:
+              description: brand of the phishing resource
+              type: string
+            type:
+              description: type of brand
+              type: string
+            domain:
+              description: the primary domain
+              type: string
