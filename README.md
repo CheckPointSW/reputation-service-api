@@ -16,12 +16,18 @@
     - [Response](#response)
         - [Response Status Codes](#response-status-codes)
     - [Risk Threshold Guide](#risk-threshold-guide)
+  - [Swagger](#swagger)
 
 # **Overview**
 
-Reputation Service currently supports request for URLs, IP and files.
+You can now take control of new Threat Prevention APIs powered by the largest Threat Cloud in the industry:
+ 
+- [**URL Reputation**](#url-reputation-service) - for a domain/URL returns the classification and risk in accessing the resource  
+- [**File Reputation**](#file-reputation-service) - for a file digest (md5/sha1/sha256) returns the risk in downloading the file without the need to scan it  
+- [**IP Reputation**](#ip-reputation-service) - for an IP address returns it’s classification and risk in accessing a resource hosted on it
+ 
+All APIs are RESTful, simple to use and can be integrated as part of a SOAR application, home-made application and more!
 
-Before using the reputation service first get a token that is valid for a week from the rep-auth service, and then send a request to the reputation service using that token in the request.
 
 # APIs
 
@@ -276,4 +282,6 @@ Possible values:</p>
 | 80\<=Risk\<100 | No proven legit was activity witnessed by the resource and there are circumstantial evidences that ties the resource to malicious activity | Medium          | High/Critical |
 | Risk=100       | Known malicious resource by at least one trusted vendors                                                                                   | High            | High/Critical |
 
-#
+# Swagger
+
+Checkout our [Swagger UI](https://app.swaggerhub.com/apis-docs/reputation-service/api) to explore the API
