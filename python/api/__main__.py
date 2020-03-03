@@ -27,18 +27,18 @@ def main(service, resource, client_key, verbose):
     logger.debug('success!')
     token = token_res.content
     logger.debug('now, let\'s query reputation')
-    rep_res = requests.post(f'https://rep.checkpoint.com/{service}-rep/service/v2.0/query?resource={resource}',
+    rep_res = requests.post('https://rep.checkpoint.com/{}-rep/service/v2.0/query?resource={}'.format(service, resource),
                             json={
                                 'request': [{'resource': resource}]
                             }, headers={'Client-Key': client_key, 'token': token})
     if rep_res.status_code != 200:
         raise StatusCodeException(rep_res.status_code)
     logger.debug('success!')
-    logger.debug(f'your response is:\n{json.dumps(rep_res.json(), indent=2)}\n')
+    logger.debug('your response is:\n{}\n'.format(json.dumps(rep_res.json(), indent=2)))
     response = rep_res.json()['response'][0]
     risk = response['risk']
     classification = response['reputation']['classification']
-    logger.info(f'{resource} is {classification} with risk {risk}/100')
+    logger.info('{} is {} with risk {}/100'.format(resource, classification, risk))
 
 
 if __name__ == '__main__':

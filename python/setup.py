@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="reputation-service-API-client",
-    version="1.0.0",
+    version="1.0.1",
     author="Check Point Software Technologies LTD.",
     author_email="aviadl@checkpoint.com",
     description="Reputation Service python example",
