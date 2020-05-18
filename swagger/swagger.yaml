@@ -1,7 +1,8 @@
 openapi: 3.0.1
 info:
-  title: Reputation Service
+  title: Check Point Reputation Service API
   description: |
+    # Introduction
     You can now take control of new Threat Prevention APIs powered by the largest Threat Cloud in the industry:  
     
     - **URL Reputation** – for a domain/URL returns the classification and risk in accessing the resource  
@@ -16,7 +17,7 @@ paths:
   /rep-auth/service/v1.0/request:
     get:
       tags:
-        - Auth
+        - Authentication
       parameters:
         - name: Client-Key
           in: header
