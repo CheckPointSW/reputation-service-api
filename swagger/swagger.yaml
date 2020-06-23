@@ -2,19 +2,19 @@ openapi: 3.0.1
 info:
   title: Check Point Reputation Service API
   description: |
-    ## Introduction
+    # Introduction
     Leverage the Check Point’s threat intelligence to enrich your SIEM and SOAR solutions and to secure your business applications and websites by using simple RESTful APIs.  
 
     Check Point Reputation Service API provides the following functionalities:
     - **URL Reputation** – for a domain/URL returns the classification and risk in accessing the resource
     - **File Reputation** – for a file digest (md5/sha1/sha256) returns the risk in downloading the file without the need to scan it
     - **IP Reputation**  - for an IP address returns it’s classification and risk in accessing a resource hosted on it
-    ## Getting Started with the Reputation Service API  
-    ### Get your API Key 
+    # Getting Started with the Reputation Service API  
+    ## Get your API Key 
     To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com)
-    ### Make your first Reputation Service API call
+    ## Make your first Reputation Service API call
     After you got your API key use that key to make a call to the Reputation Service.
-    #### Step 1: Get your session token
+    ### Step 1: Get your session token
     First you need to generate a session token. The session token is valid for 30min.  
     
     Request example:  
@@ -26,7 +26,7 @@ info:
     ```
     exp=XXXXXXX~acl=XXXX/*~hmac=XXXXXXXXX
     ```
-    #### Step 2: Use your API Key and your session token for a Reputation Service Query
+    ### Step 2: Use your API Key and your session token for a Reputation Service Query
     Note: you have to provide the resource to be queried both in the message body and in the URL request.  
 
     Request example:  
@@ -40,41 +40,41 @@ info:
       "response": [
         {
           "status": {
-          "code": 2001,
-          "label": "SUCCESS",
-          "message": "Succeeded to generate reputation"
-        },
-        "resource": "ynet.co.il",
-        "reputation": {
-          "classification": "Benign",
-          "severity": "N/A",
-          "confidence": "High"
-        },
-        "risk": 0,
-        "context": {
-          "categories": [
-            {
-              "id": 24,
-              "name": "News / Media"
-            }
-          ],
-          "indications": [
-            "The domain is popular among websites with good reputation",
-            "The domain has good reputation",
-            "The domain is popular in the world",
-            "Check Point's URL Filtering category is News / Media",
-            "VirusTotal vendors detected benign URLs of the domain",
-            "The IP address is involved with benign activity"
-          ],
-          "vt_positives": 0,
-          "safe": true,
-          "creation_date": "2001:01:07 00:00:00",
-          "related_ips": [
-            {
-              "ip": "104.123.201.212",
-              "classification": "Benign",
-              "confidence": "Low"
-            }
+            "code": 2001,
+            "label": "SUCCESS",
+            "message": "Succeeded to generate reputation"
+          },
+          "resource": "ynet.co.il",
+          "reputation": {
+            "classification": "Benign",
+            "severity": "N/A",
+            "confidence": "High"
+          },
+          "risk": 0,
+          "context": {
+            "categories": [
+              {
+                "id": 24,
+                "name": "News / Media"
+              }
+            ],
+            "indications": [
+              "The domain is popular among websites with good reputation",
+              "The domain has good reputation",
+              "The domain is popular in the world",
+              "Check Point's URL Filtering category is News / Media",
+              "VirusTotal vendors detected benign URLs of the domain",
+              "The IP address is involved with benign activity"
+            ],
+            "vt_positives": 0,
+            "safe": true,
+            "creation_date": "2001:01:07 00:00:00",
+            "related_ips": [
+              {
+                "ip": "104.123.201.212",
+                "classification": "Benign",
+                "confidence": "Low"
+              }
             ]
           }
         }
