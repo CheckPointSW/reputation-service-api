@@ -11,7 +11,7 @@ info:
     - **IP Reputation**  - for an IP address returns it’s classification and risk in accessing a resource hosted on it
     # Getting Started with the Reputation Service API  
     ## Get your API Key 
-    To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com)
+    To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com) and we'll provide you an API key for you to use
     ## Make your first Reputation Service API call
     After you got your API key use that key to make a call to the Reputation Service.
     ### Step 1: Get your session token

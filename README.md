@@ -1,6 +1,9 @@
-# Reputation Service
+# Check Point Reputation Service API
 
-  - [Overview](#overview)
+  - [Overview](#overview)  
+  - [Getting Started with the Reputation Service API](#getting-started-with-the-reputation-service-api)
+    - [Get your API Key](#get-your-api-key)
+  - [Swagger](#swagger)
   - [APIs](#apis)
     - [Rep-Auth Service](#rep-auth-service)
         - [How to generate a token?](#how-to-generate-a-token)
@@ -16,22 +19,30 @@
     - [Response](#response)
         - [Response Status Codes](#response-status-codes)
     - [Risk Threshold Guide](#risk-threshold-guide)
-  - [Swagger](#swagger)
 
-# **Overview**
+## **Overview**
 
-You can now take control of new Threat Prevention APIs powered by the largest Threat Cloud in the industry:
- 
+Leverage the Check Point’s threat intelligence to enrich your SIEM and SOAR solutions and to secure your business applications and websites by using simple RESTful APIs.
+
+Check Point Reputation Service API provides the following functionalities:
+
 - [**URL Reputation**](#url-reputation-service) - for a domain/URL returns the classification and risk in accessing the resource  
 - [**File Reputation**](#file-reputation-service) - for a file digest (md5/sha1/sha256) returns the risk in downloading the file without the need to scan it  
 - [**IP Reputation**](#ip-reputation-service) - for an IP address returns it’s classification and risk in accessing a resource hosted on it
- 
-All APIs are RESTful, simple to use and can be integrated as part of a SOAR application, home-made application and more!
 
+## Getting Started with the Reputation Service API  
 
-# APIs
+### Get your API Key  
 
-## **Rep-Auth Service**
+To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com) and we'll provide you an API key for you to use.
+
+## Swagger
+
+Checkout our [Swagger UI](https://app.swaggerhub.com/apis-docs/cp-devops-cloud/reputation-service) to explore the API
+
+## APIs
+
+### **Rep-Auth Service**
 
 Authentication to the reputation service  acquires using a token generated from the rep-auth service.
 
@@ -39,9 +50,9 @@ The token will expire after a week, to renew the authentication - send a new tok
 
 The token should look like this: `exp=1578566241~acl=/*~hmac=95add7c04faa2e7831b451fd45503e4a2ac0598c7e84a5ace7dd611d7b483e5f`
 
-### **How to generate a token**?
+#### **How to generate a token**?
 
-Send an HTTPS GET request: https://rep.checkpoint.com/rep-auth/service/v1.0/request
+Send an HTTPS GET request: <https://rep.checkpoint.com/rep-auth/service/v1.0/request>
 
 Use the "Client-Key" header. (otherwise you will get HTTP status 401)
 
@@ -49,9 +60,9 @@ Use the "Client-Key" header. (otherwise you will get HTTP status 401)
 
 Service respond status code 403 Forbidden
 
-## **URL Reputation Service**
+### **URL Reputation Service**
 
-### Request
+#### Request
 
 Send an HTTPS POST request: https://rep.checkpoint.com/url-rep/service/v2.0/query?resource={url}
 
@@ -74,7 +85,7 @@ Request body, use JSON format:
 | ------------------ | -------- | --------------- | ------------------------------ |
 | resource           | String   | No              | the URL to query about         |
 
-### **URL classifications**
+#### **URL classifications**
 
 | **Classification**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Severity** |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
@@ -93,16 +104,16 @@ Request body, use JSON format:
 | Spam                | The url is used for spam.                                                                                                                                                                                                                                                                                                                                                                                                                                  | High         |
 | Cryptominer         | The url is used for cryptomining.                                                                                                                                                                                                                                                                                                                                                                                                                          | High         |
 
-## **File Reputation Service**
+### **File Reputation Service**
 
-### Request
+#### Request  
 
-Send an HTTPS POST request: https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}
+Send an HTTPS POST request: <https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}>
 
-request headers: 
+request headers:  
 
-  - "Client-Key":  You authorization id.
-  - "token": the token from the rep-auth service.
+- "Client-Key":  You authorization id.
+- "token": the token from the rep-auth service.
 
 request body, use JSON format:
 
@@ -131,9 +142,9 @@ request body, use JSON format:
 | Spam               | The file is used for spam.                                                                                                                                                                                                                                                                                           | High         |
 | Cryptominer        | The file is used for cryptomining.                                                                                                                                                                                                                                                                                   | High         |
 
-## **IP Reputation Service**
+### **IP Reputation Service**
 
-### Request
+#### Request
 
 Send an HTTPS POST request: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource={ip}
 
@@ -178,7 +189,7 @@ request body, use JSON format:
 | Compromised Host   | Victim IP.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Medium       |
   
   
-# **Response**
+## **Response**
 
 <table>
 <thead>
@@ -261,7 +272,7 @@ Possible values:</p>
 </tbody>
 </table>
 
-## **Response Status Codes**
+### **Response Status Codes**
 
 | **HTTP Response Code** | **Description**                                                                                                        |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -270,7 +281,7 @@ Possible values:</p>
 | 401                    | Bad or missing "Client-Key" header                                                                                     |
 | 403                    | Bad or missing "token" header                                                                                          |
 
-# **Risk Threshold Guide**
+## **Risk Threshold Guide**
 
 | **Risk Range** | **Description**                                                                                                                            | **Confidence**  | **Severity**  |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------- |
@@ -281,7 +292,3 @@ Possible values:</p>
 | 50\<Risk\< 80  | No proven legit was activity witnessed by the resource                                                                                     | Low             | High/Critical |
 | 80\<=Risk\<100 | No proven legit was activity witnessed by the resource and there are circumstantial evidences that ties the resource to malicious activity | Medium          | High/Critical |
 | Risk=100       | Known malicious resource by at least one trusted vendors                                                                                   | High            | High/Critical |
-
-# Swagger
-
-Checkout our [Swagger UI](https://app.swaggerhub.com/apis-docs/reputation-service/api) to explore the API
