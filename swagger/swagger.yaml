@@ -2,20 +2,18 @@ openapi: 3.0.1
 info:
   title: Check Point Reputation Service API
   description: |
-    # Introduction
+    ## Introduction
     Leverage the Check Point’s threat intelligence to enrich your SIEM and SOAR solutions and to secure your business applications and websites by using simple RESTful APIs.  
 
-    Check Point Reputation Service API provides the following functionalities:
-    - **URL Reputation** – for a domain/URL returns the classification and risk in accessing the resource
-    - **File Reputation** – for a file digest (md5/sha1/sha256) returns the risk in downloading the file without the need to scan it
-    - **IP Reputation**  - for an IP address returns it’s classification and risk in accessing a resource hosted on it
-    # Getting Started with the Reputation Service API  
-    ## Get your API Key 
-    To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com) and we'll provide you an API key for you to use
-    ## Make your first Reputation Service API call
-    After you got your API key use that key to make a call to the Reputation Service.
-    ### Step 1: Get your session token
-    First you need to generate a session token. The session token is valid for 30min.  
+    | **Input** | **Output** |
+    |-------|--------|
+    | **URL, IP, File digest (md5/sha1/sha256)**   | classification and risk     |
+
+    ## Getting Started with the Reputation Service API  
+    ### 1. Get your API Key 
+    [Contact us](mailto:TCAPI_SUPPORT@checkpoint.com) to get an API key
+    ### 2. Request a session token
+    The session token is valid for 30min.  
     
     Request example:  
     ```linux
@@ -26,8 +24,8 @@ info:
     ```
     exp=XXXXXXX~acl=XXXX/*~hmac=XXXXXXXXX
     ```
-    ### Step 2: Use your API Key and your session token for a Reputation Service Query
-    Note: you have to provide the resource to be queried both in the message body and in the URL request.  
+    ### 3. Use your API Key and your session token for a Reputation Service Query
+    Note: you have to provide the resource to be queried both in the **message body** and in the **URL request**.  
 
     Request example:  
     ```linux
@@ -87,7 +85,7 @@ servers:
 paths:
   /rep-auth/service/v1.0/request:
     get:
-      summary: Use your API token to generate a temporary session token
+      summary: Request a session token
       tags:
         - Authentication
       parameters:
@@ -104,7 +102,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
   '/{service}-rep/service/v2.0/query':
     post:
-      summary: Use your API token and temporary session token to query your resources (URL, IP, FILE digest)
+      summary: Query your resource
       tags:
         - Query
       parameters:
