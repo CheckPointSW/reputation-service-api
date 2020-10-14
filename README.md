@@ -34,7 +34,8 @@ Check Point Reputation Service API provides the following functionalities:
 
 ### Get your API Key  
 
-To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com) and we'll provide you an API key for you to use.
+To get started with using the APIs, you must first [contact us](mailto:TCAPI_SUPPORT@checkpoint.com) .  
+We'll provide you a trial API key for you to use. You'll be granted a daily quota. When you quota exceeded you'll receive `429` response status code.
 
 ## Swagger
 
