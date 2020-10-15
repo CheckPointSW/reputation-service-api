@@ -152,6 +152,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
     Unauthorized:
@@ -160,6 +162,8 @@ components:
       description: Bad Request - Check your resource
     Forbidden:
       description: Invalid token header
+    TooManyRequests:
+      description: Quota exceeded
   schemas:
     ReputationSingleRequest:
       properties:
