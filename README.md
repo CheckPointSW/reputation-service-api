@@ -143,7 +143,6 @@ request body, use JSON format:
 | Spam               | The file is used for spam.                                                                                                                                                                                                                                                                                           | High         |
 | Phishing               | File that attempt to obtain sensitive information such as usernames, passwords, and credit card details.                       
                                                                                                                                                           | High         |
-
 | Cryptominer        | The file is used for cryptomining.                                                                                                                                                                                                                                                                                   | High         |
 
 ### **IP Reputation Service**
