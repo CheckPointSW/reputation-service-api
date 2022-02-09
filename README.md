@@ -39,7 +39,7 @@ We'll provide you a trial API key for you to use. You'll be granted a daily quot
 
 ## Swagger
 
-Checkout our [Swagger UI](https://app.swaggerhub.com/apis-docs/cp-devops-cloud/reputation-service) to explore the API
+Checkout our [Swagger UI](https://app.swaggerhub.com/apis-docs/Check-Point/reputation-service/) to explore the API
 
 ## APIs
 
