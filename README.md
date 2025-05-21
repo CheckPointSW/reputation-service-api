@@ -108,12 +108,12 @@ Request body, use JSON format:
 
 #### Request  
 
-Send an HTTPS POST request: <https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}>
+Send an **HTTPS POST** request to the following endpoint: <https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}>
 
-request headers:  
+Request headers: 
 
-- "Client-Key":  You authorization id.
-- "token": the token from the rep-auth service.
+  - "Client-Key":  Your trial API key.
+  - "token": the token you have received from the rep-auth service.
 
 request body, use JSON format:
 
@@ -133,26 +133,26 @@ request body, use JSON format:
 
 | **Classification** | **Description**                                                                                                                                                                                                                                                                                                      | **Severity** |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Unclassified       | The service couldn't classify the resource or there is not enough info about this resource.                                                                                                                                                                                                                               | N/A          |
-| Adware             | Adware is a form of software that downloads or displays unwanted ads when a user is online, collects marketing data and other information without the user's knowledge or redirects search requests to advertising websites.                                      | Low          |
-| Riskware           | Riskware are legitimate programs that can cause damage when exploited by malicious users – in order to delete, block, modify, or copy data, and disrupt the performance of computers or networks. | Medium       |
-| Malware            | A malicious file that can harm computers or networks.                                                                                                                                                                                                                                                                                                      | High         |
-| Benign             | A legitimate file safe to run or process.                                                                                                                                                                                                                                                                   | Medium       |
-| Unknown            | The service has never seen this file before.                                                                                                                                                                                                                                                            | N/A          |
-| Spam               | The file is used for spam.                                                                                                                                                                                                                                                                                           | High         |
-| Cryptominer        | The file is used for cryptomining.                                                                                                                                                                                                                                                                                   | High         |
-| Phishing        | File that attempt to obtain sensitive information such as usernames, passwords, and credit card details.                                                                                                                                                                                                                                                                                   | High         |
+| Unclassified       | The service couldn't classify the hash. there is not enough data about this hash.                                                                                                                | N/A          |
+| Adware             | Adware is a form of software that downloads or displays unwanted ads when a user is online, collects marketing data and other information without the user's knowledge or redirects search requests to advertising websites.                                                                                                                                                                                                                                                  | Low          |
+| Riskware           | Riskware are legitimate programs that can cause damage when exploited by malicious users – in order to delete, block, modify, or copy data, and disrupt the performance of computers or networks.| Medium       |
+| Malware            | A malicious file that can harm computers or networks.                                                                                                                                            | High         |
+| Benign             | A legitimate file safe to run or process.                                                                                                                                                        | Medium       |
+| Unknown            | The service has never seen this file before.                                                                                                                                                     | N/A          |
+| Spam               | The file is used for spam.                                                                                                                                                                       | High         |
+| Cryptominer        | The file is used for cryptomining.                                                                                                                                                               | High         |
+| Phishing           | File that attempt to obtain sensitive information such as usernames, passwords, and credit card details.                                                                                         | High         |
 
 ### **IP Reputation Service**
 
 #### Request
 
-Send an HTTPS POST request: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource={ip}
+Send an **HTTPS POST** request to the following endpoint: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource={ip}
 
-request headers: 
+Request headers: 
 
-  - "Client-Key":  You authorization id.
-  - "token": the token from the **rep-auth** service.
+  - "Client-Key":  Your trial API key.
+  - "token": the token you have received from the rep-auth service.
 
 request body, use JSON format:
 
@@ -172,105 +172,97 @@ request body, use JSON format:
 
 | **Classification** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                               | **Severity** |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Unclassified       | The service couldn't classify the IP. there is not enough data about this resource.                                                                                                                                                                                                                                                                                                                                                                           | N/A          |
-| Adware             | The IP's domains operating in the gray areas of the law collecting private data on the users and display unwanted content, or website which contains sub-application to download.                                                                                                                                                                                                                                                                             | Low          |
-| Volatile           | The IP's domains contain malicious software, for example hacking websites.                                                                                                                                                                                                                                                                                                                                                                                    | Medium       |
-| Benign             | Legit IP, which doesn't serve any malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                                          | N/A          |
-| CnC Server         | Command and control of malware.                                                                                                                                                                                                                                                                                                                                                                                                                               | Critical     |
-| Compromised Server | Legit IP that was hacked and now serve a malicious purpose.                                                                                                                                                                                                                                                                                                                                                                                                   | High         |
-| Phishing           | The IP's domains attempt to obtain sensitive information such as usernames, passwords, and credit card details (and sometimes, indirectly, money), often for malicious reasons, by masquerading as a trustworthy entity in an electronic communication | High         |
-| Infection Source   | The IP's domains may infect its visitors with malware.                                                                                                                                                                                                                                                                                                                                                                                                        | High         |
-| Web Hosting        | The IP's domains allow to rent out space for websites to have your business in.                                                                                                                                                                                                                                                                                                                                                                               | Medium       |
-| File Hosting       | The IP's domains allow to rent out space for storage to have your business in.                                                                                                                                                                                                                                                                                                                                                                                | Medium       |
-| Parked             | The IP's domains permanently do not have content. it may contain advertising content on pages that have been registered but do not yet have original content                                                                                                                                                                                                                                                                                                  | Medium       |
-| Scanner            | The IP is a known internet scanner.                                                                                                                                                                                                                                                                                                                                                                                                                           | Medium       |
-| Anonymiser         | The IP is a known TOR anonymity internet.                                                                                                                                                                                                                                                                                                                                                                                                                     |              |
-| Cryptominer        | The IP's domains are used for cryptomining.                                                                                                                                                                                                                                                                                                                                                                                                                   | High         |
-| Spam               | The IP's domains are used for spam.                                                                                                                                                                                                                                                                                                                                                                                                                           | High         |
-| Compromised Host   | Victim IP.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Medium       |
+| Unclassified       | The service couldn't classify the IP. there is not enough data about this IP.                                                                                                    | N/A          |
+| Adware             | The IP's domains are operating in the gray areas of the law collecting private data on the users and display unwanted content.                                                   | Low          |
+| Volatile           | The IP's domains contain malicious software, for example hacking websites.                                                                                                       | Medium       |
+| Benign             | A legit IP, which doesn't serve any malicious purpose.                                                                                                                           | N/A          |
+| CnC Server         | A Command and Control server used for cummunicating with malware.                                                                                                                | Critical     |
+| Compromised Server | A legit IP that was hacked and now serves a malicious purpose.                                                                                                                   | High         |
+| Phishing           | The IP's domains attempt to obtain sensitive information such as usernames, passwords, and credit card details (and sometimes, indirectly, money), often for malicious reasons, by masquerading as a trustworthy entity like a known company.                                                                                                                                                                                                                 | High         |
+| Infection Source   | The IP's domains may infect its visitors with malware.                                                                                                                           | High         |
+| Web Hosting        | The IP's domains allow to rent server space to make websites accessible on the internet.                                                                                         | Medium       |
+| File Hosting       | The IP's domains allow to renter server space to make files accessible on the internet.                                                                                          | Medium       |
+| Parked             | The IP's domains permanently do not have content. it may contain advertising content on pages that have been registered but do not yet have original content.                    | Medium       |
+| Scanner            | The IP is a known internet scanner.                                                                                                                                              | Medium       |
+| Anonymiser         | The IP is a known TOR anonymity internet.                                                                                                                                        | Medium       |
+| Cryptominer        | The IP's domains are used for cryptomining.                                                                                                                                      | High         |
+| Spam               | The IP's domains are used for spam.                                                                                                                                              | High         |
+| Compromised Host   | The IP belongs to a website which was hacked.                                                                                                                                    | Medium       |
   
   
 ## **Response**
 
 <table>
-<thead>
-<tr class="header">
-<th><strong>Attribute Name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Is Optional</strong></th>
-<th><strong>Description</strong></th>
-<th><strong>Inner Attribute</strong></th>
-<th><strong>Inner Attribute Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>status</td>
-<td>Object</td>
-<td>No</td>
-<td>Reflect the application status</td>
-<td><ul>
-<li><p>code</p></li>
-<li><p>label</p></li>
-<li><p>message</p></li>
-</ul></td>
-<td><p>code: 2001<br />
-label: SUCCESS<br />
-message: Succeeded to generate reputation</p>
-<p>code: 2002<br />
-label: PARTIAL_SUCCESS<br />
-message: Some vendors are unavailable</p>
-<p>code: 2003<br />
-label: FAILED<br />
-message: No available vendors</p>
-<tr class="even">
-<td>resource</td>
-<td>String</td>
-<td>No</td>
-<td>The URL from the request</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>reputation</td>
-<td>Object</td>
-<td>No</td>
-<td>Reputation meta-data</td>
-<td>classification</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>severity</td>
-<td>The severity of the classification.<br/>
-Possible values:
-<ul>
-<li>N/A</li>
-<li>Low</li>
-<li>Medium</li>
-<li>High</li>
-<li>Critical</li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>confidence</td>
-<td><p>How much the service is confident with the reputation response.<br/>
-Possible values:</p>
-<ul>
-<li>N/A</li>
-<li>Low</li>
-<li>Medium</li>
-<li>High</li>
-</ul></td>
-</tr>
-</tbody>
+  <thead>
+    <tr class="header">
+    <th><strong>Attribute Name</strong></th>
+    <th><strong>Type</strong></th>
+    <th><strong>Description</strong></th>
+    <th><strong>Inner Attribute</strong></th>
+    <th><strong>Inner Attribute Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="odd">
+      <td>status</td>
+      <td>Object</td>
+      <td>Reflect the application status</td>
+      <td><ul>
+      <li><p>code</p></li>
+      <li><p>label</p></li>
+      <li><p>message</p></li>
+      </ul></td>
+      <td><p>code: 2001<br />
+      label: SUCCESS<br />
+      message: Succeeded to generate reputation</p>
+      <p>code: 2006<br />
+      label: PARTIAL_SUCCESS<br />
+      message: Some vendors are unavailable</p>
+    </tr>
+    <tr class="even">
+      <td>resource</td>
+      <td>String</td>
+      <td>The URL from the request</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="odd">
+      <td>reputation</td>
+      <td>Object</td>
+      <td>Reputation meta-data</td>
+      <td>classification</td>
+      <td></td>
+    </tr>
+    <tr class="even">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>severity</td>
+      <td>The severity of the classification.<br/>
+      Possible values:
+      <ul>
+      <li>N/A</li>
+      <li>Low</li>
+      <li>Medium</li>
+      <li>High</li>
+      <li>Critical</li>
+      </ul></td>
+    </tr>
+    <tr class="odd">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>confidence</td>
+      <td><p>How much the service is confident with the reputation response.<br/>
+      Possible values:</p>
+      <ul>
+      <li>N/A</li>
+      <li>Low</li>
+      <li>Medium</li>
+      <li>High</li>
+      </ul></td>
+    </tr>
+  </tbody>
 </table>
 
 ### **Response Status Codes**
@@ -284,12 +276,11 @@ Possible values:</p>
 
 ## **Risk Threshold Guide**
 
-| **Risk Range** | **Description**                                                                                                                            | **Confidence**  | **Severity**  |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------- |
-| Risk=0         | Indications of a legit website                                                                                                             | High            | N/A           |
-| 0\<Risk\<10    | Internet long tail                                                                                                                         | Low/Medium      | Low           |
-| 10\<=Risk\<50  | Adware servers, rouge popups URLs                                                                                                          | Low/Medium/High | Low/Medium    |
-| Risk=50        | Anonymizers, hosting and parked websites, Unknown files                                                                                    | Medium/High     | Medium        |
-| 50\<Risk\< 80  | No proven legit was activity witnessed by the resource                                                                                     | Low             | High/Critical |
-| 80\<=Risk\<100 | No proven legit was activity witnessed by the resource and there are circumstantial evidences that ties the resource to malicious activity | Medium          | High/Critical |
-| Risk=100       | Known malicious resource by at least one trusted vendors                                                                                   | High            | High/Critical |
+| **Risk Range** | **Description**                                                                                                                             | **Confidence**  | **Severity**  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------- |
+| Risk=0         | Indications of a legit website.                                                                                                             | High            | N/A           |
+| Risk=34        | Unclassified.                                                                                                                               | Low/Medium/High | Low/Medium    |
+| Risk=50        | Anonymizers, hosting and parked websites, Unknown files.                                                                                    | Medium/High     | Medium        |
+| Risk=64        | Browsing to the resource should be done with extra caution.                                                                                 | Low             | High/Critical |
+| Risk=80        | There are circumstantial evidences that ties the resource to malicious activity.                                                            | Medium          | High/Critical |
+| Risk=100       | Known malicious resource by at least one trusted vendors.                                                                                   | High            | High/Critical |
