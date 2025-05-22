@@ -3,79 +3,85 @@ info:
   title: Check Point Reputation Service API
   description: |
     ## Introduction
-    Leverage the Check Point’s threat intelligence to enrich your SIEM and SOAR solutions and to secure your business applications and websites by using simple RESTful APIs.  
+    Leverage the Check Point’s threat intelligence to enrich your SIEM and SOAR solutions and secure your business applications and websites using simple RESTful APIs.  
 
     | **Input** | **Output** |
     |-------|--------|
-    | **URL, IP, File digest (md5/sha1/sha256)**   | classification and risk     |
+    | **URL, IP, File digest (md5/sha1/sha256)**   | Reputation, Risk and Context     |
 
-    ## Getting Started with the Reputation Service API  
+    ## Getting Started with the Reputation Service API
     ### 1. Get your API Key 
     [Contact us](mailto:TCAPI_SUPPORT@checkpoint.com) to get an API key
-    ### 2. Request a session token
-    The session token is valid for 30min.  
     
-    Request example:  
+    <br>
+    ### 2. Request a session token
+    * Use the provided client key to get a session token
+    * The session token is <ins>**valid for 30min**<ins>.  
+    
+    <ins>Request example:<ins>  
     ```linux
     curl -X GET "https://rep.checkpoint.com/rep-auth/service/v1.0/request" -H "Client-Key: XXXXXXXXXXXXX"
     ```
-
-    Response example:
+    <ins> Response example: <ins> 
     ```
     exp=XXXXXXX~acl=XXXX/*~hmac=XXXXXXXXX
     ```
-    ### 3. Use your API Key and your session token for a Reputation Service Query
-    Note: you have to provide the resource to be queried both in the **message body** and in the **URL request**.  
+    <br>
+  
+    ### 3. Reputation Service Query
+    * With your API Key and the generated session token you can query Reputation Service
+    * Fill in the required service [url-rep / file-rep / ip-rep]
+    * Fill in the requested resource
+    * **Important**: The resource should be inserted in 2 places:
+      * **Paylod** [Json / Request Body] 
+      * **Request parameter** [after ?resource=].  
 
-    Request example:  
+    <ins>Request example:<ins>  
     ```linux
-    curl -X POST "https://rep.checkpoint.com/url-rep/service/v2.0/query?resource=ynet.co.il" -H "accept: application/json" -H "Client-Key: XXXXXXX" -H "token: exp=XXXXX~acl=XXXXX" -H "Content-Type: application/json" -d "{\"request\":[{\"resource\":\"ynet.co.il\"}]}"
+    curl -X POST "https://rep.checkpoint.com/url-rep/service/v2.0/query?resource=ynet.co.il" -H "accept: application/json" -H "Client-Key: XXXXXXX" -H "token: exp=XXXXXXX~acl=XXXX/*~hmac=XXXXXXXXX -H "Content-Type: application/json" -d "{\"request\":[{\"resource\":\"ynet.co.il\"}]}"
     ```
 
-    Response example:
+    <ins> Response example: <ins> 
     ```json
     {
       "response": [
-        {
-          "status": {
-            "code": 2001,
-            "label": "SUCCESS",
-            "message": "Succeeded to generate reputation"
-          },
-          "resource": "ynet.co.il",
-          "reputation": {
-            "classification": "Benign",
-            "severity": "N/A",
-            "confidence": "High"
-          },
-          "risk": 0,
-          "context": {
-            "categories": [
-              {
-                "id": 24,
-                "name": "News / Media"
+          {
+              "status": {
+                  "code": 2001,
+                  "label": "SUCCESS",
+                  "message": "Succeeded to generate reputation"
+              },
+              "resource": "ynet.co.il",
+              "reputation": {
+                  "classification": "Benign",
+                  "confidence": "High",
+                  "severity": "N/A"
+              },
+              "risk": 0,
+              "context": {
+                  "categories": [
+                      {
+                          "id": 24,
+                          "name": "News / Media"
+                      }
+                  ],
+                  "vt_categories": [
+                      "news",
+                      "news and media"
+                  ],
+                  "alexa_rank": 1100,
+                  "creation_date": "2001:01:07 00:00:00",
+                  "vt_positives": 0,
+                  "indications": [
+                      "The URL is known benign by Check Point's Threat Cloud",
+                      "The domain’s Alexa rank is 1100",
+                      "The domain’s Tranco rank is 1200",
+                      "The domain is popular in the world",
+                      "Domain is classified as News / Media"
+                  ],
+                  "safe": true
               }
-            ],
-            "indications": [
-              "The domain is popular among websites with good reputation",
-              "The domain has good reputation",
-              "The domain is popular in the world",
-              "Check Point's URL Filtering category is News / Media",
-              "VirusTotal vendors detected benign URLs of the domain",
-              "The IP address is involved with benign activity"
-            ],
-            "vt_positives": 0,
-            "safe": true,
-            "creation_date": "2001:01:07 00:00:00",
-            "related_ips": [
-              {
-                "ip": "104.123.201.212",
-                "classification": "Benign",
-                "confidence": "Low"
-              }
-            ]
           }
-        }
       ]
     }
     ```
@@ -97,9 +103,13 @@ paths:
             format: uuid
       responses:
         '200':
-          description: The token to use in reputation
+          description: Sucess - the response is a token valild for 30 minutes
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
   '/{service}-rep/service/v2.0/query':
     post:
       summary: Query your resource
@@ -152,6 +162,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
@@ -159,11 +171,13 @@ components:
     Unauthorized:
       description: Invalid Client-Key header
     BadRequest:
-      description: Bad Request - Check your resource
+      description: Bad Request - Check the request paremters
     Forbidden:
       description: Invalid token header
     TooManyRequests:
       description: Quota exceeded
+    NotFound:
+      description: The requested URL was not found
   schemas:
     ReputationSingleRequest:
       properties:
@@ -217,21 +231,17 @@ components:
           enum:
             - 2001
             - 2002
-            - 2003
         label:
           type: string
           enum:
             - SUCCESS
             - PARTIAL_SUCCESS
-            - FAILED
         message:
           type: string
           enum:
             - Succeeded to generate reputation
             - Some vendors are unavailable
-            - Failed to process
     ReputationResponseContext:
-      description: 'In parentheses, the service returning the field'
       type: object
       properties:
         asn:
@@ -248,8 +258,7 @@ components:
           description: the malware family associated with the resource  (URL/FILE/IP)
         protection_name:
           type: string
-          description: >-
-            The protection name returned from Malware Service / AntiVirus
+          description: The protection name returned from Malware Service / AntiVirus
             (URL/FILE)
         redirections:
           type: array
@@ -266,14 +275,19 @@ components:
           description: URLF categories (URL)
           items:
             type: string
-        google_safe_browsing_categories:
+        vt_categories:
           type: array
-          description: Google safe browsing categories (URL)
+          description: Virus Total categories (URL)
+          items:
+            type: string
+        alexa_rank:
+          type: number
+          description: Popularity rank (URL)
           items:
             type: string
         location:
           type: object
-          description: geo location information  (IP)
+          description: geo location information (IP)
           properties:
             region:
               type: string
@@ -316,16 +330,3 @@ components:
                   type: string
                 confidence:
                   type: string
-        phishing:
-          type: object
-          description: (URL)
-          properties:
-            brand:
-              description: brand of the phishing resource
-              type: string
-            type:
-              description: type of brand
-              type: string
-            domain:
-              description: the primary domain
-              type: string
