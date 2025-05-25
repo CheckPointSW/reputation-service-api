@@ -27,7 +27,7 @@ def main(service, resource, client_key, verbose):
     logger.debug('success!')
     token = token_res.content
     logger.debug('now, let\'s query reputation')
-    rep_res = requests.post('https://rep.checkpoint.com/{}-rep/service/v2.0/query?resource={}'.format(service, resource),
+    rep_res = requests.post('https://rep.checkpoint.com/{}-rep/service/v3.0/query?resource={}'.format(service, resource),
                             json={
                                 'request': [{'resource': resource}]
                             }, headers={'Client-Key': client_key, 'token': token})

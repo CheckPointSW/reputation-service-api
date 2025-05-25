@@ -79,7 +79,7 @@ public class ReputationClient {
                                                         .ofString(String.format("{ \"request\": [{\"resource\": " +
                                                                                 "\"%s\"}]}", this.args.getResource())))
                                           .uri(URI.create(String.format(
-                                                  "https://rep.checkpoint.com/%s-rep/service/v2.0/query?" +
+                                                  "https://rep.checkpoint.com/%s-rep/service/v3.0/query?" +
                                                   "resource=%s",
                                                   this.args.getService(), this.args.getResource())))
                                           .header("Client-Key", this.args.getClientKey())

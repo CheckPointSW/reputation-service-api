@@ -64,7 +64,7 @@ If your token has expired, the service will respond with an **HTTP 403 Forbidden
 
 #### Request
 
-Send an **HTTPS POST** request to the following endpoint: https://rep.checkpoint.com/url-rep/service/v2.0/query?resource={url}
+Send an **HTTPS POST** request to the following endpoint: https://rep.checkpoint.com/url-rep/service/v3.0/query?resource={url}
 
 Request headers: 
 
@@ -89,13 +89,12 @@ Request body, use JSON format:
 
 | **Classification**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Severity** |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Unclassified        | The service couldn't classify the domain. there is not enough data about this resource.                                                                                       | N/A          |
-| Adware              | A website that operates in legal gray areas by collecting users’ private data without clear consent, displaying unwanted or intrusive content (such as pop-up ads), or embedding sub-applications that initiate unsolicited downloads. Visit [Checkpoint's blog: "What is Adware?" for further education](https://www.checkpoint.com/cyber-hub/threat-prevention/what-is-adware/)                                                                  | Low          |
+| Adware              | A website that operates in legal gray areas by collecting users’ private data without clear consent, displaying unwanted or intrusive content (such as pop-up ads), or embedding sub-applications that initiate unsolicited downloads. Visit [Checkpoint's blog: "What is Adware?" for further education](https://www.checkpoint.com/cyber-hub/threat-prevention/what-is-adware/)                                     | Low          |
 | Volatile Website    | A website that contains malicious software, for example: hacking websites.                                                                                                    | Medium       |
 | Benign              | A legit website, which don't  serve any malicious purpose.                                                                                                                    | N/A          |
 | CnC Server          | A C&C server is used by attackers to issue commands to, and receive data from, malware-infected devices (also known as bots or zombies).                                      | Critical     |
 | Compromised Website | A Legit website that was hacked and now serves a malicious purpose.                                                                                                           | High         |
-| Phishing            | A website that attempt to obtain sensitive information such as usernames, passwords, and credit card details by masquerading as a trustworthy entity, like a known company. Learn more at [Phishing Attacks. How does it work?](https://www.checkpoint.com/cyber-hub/threat-prevention/what-is-phishing/)                                                                                                                            | High         |
+| Phishing            | A website that attempt to obtain sensitive information such as usernames, passwords, and credit card details by masquerading as a trustworthy entity, like a known company. Learn more at [Phishing Attacks. How does it work?](https://www.checkpoint.com/cyber-hub/threat-prevention/what-is-phishing/)                                                                                       | High         |
 | Infecting Website   | A website that may infect it’s visitors with malware.                                                                                                                         | High         |
 | Infecting URL       | A URL that may infect it’s visitors with malware.                                                                                                                             | High         |
 | Web Hosting         | A service that rents out server space to make websites accessible on the internet.                                                                                            | Medium       |
@@ -103,12 +102,15 @@ Request body, use JSON format:
 | Parked              | A website with no original content, often displaying ads.                                                                                                                     | Medium       |
 | Spam                | The url is used for spam.                                                                                                                                                     | High         |
 | Cryptominer         | The url is used for [cryptomining](https://www.checkpoint.com/cyber-hub/threat-prevention/what-is-malware/what-is-crypto-malware/).                                           | High         |
+| Web Service         | The URL is part of a platform (Email/Marketing platform for example).                                                                                                         | High         |
+| Malicious           | Malicious websites, which serve for malicious purposes.                                                                                                                       | High         |
+| Unclassified        | The service couldn't classify the domain. there is not enough data about this resource.                                                                                       | N/A          |
 
 ### **File Reputation Service**
 
 #### Request  
 
-Send an **HTTPS POST** request to the following endpoint: <https://rep.checkpoint.com/file-rep/service/v2.0/query?resource={file-hash}>
+Send an **HTTPS POST** request to the following endpoint: <https://rep.checkpoint.com/file-rep/service/v3.0/query?resource={file-hash}>
 
 Request headers: 
 
@@ -147,7 +149,7 @@ request body, use JSON format:
 
 #### Request
 
-Send an **HTTPS POST** request to the following endpoint: https://rep.checkpoint.com/ip-rep/service/v2.0/query?resource={ip}
+Send an **HTTPS POST** request to the following endpoint: https://rep.checkpoint.com/ip-rep/service/v3.0/query?resource={ip}
 
 Request headers: 
 
@@ -276,11 +278,11 @@ request body, use JSON format:
 
 ## **Risk Threshold Guide**
 
-| **Risk Range** | **Description**                                                                                                                             | **Confidence**  | **Severity**  |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------- |
-| Risk=0         | Indications of a legit website.                                                                                                             | High            | N/A           |
-| Risk=34        | Unclassified.                                                                                                                               | Low/Medium/High | Low/Medium    |
-| Risk=50        | Anonymizers, hosting and parked websites, Unknown files.                                                                                    | Medium/High     | Medium        |
-| Risk=64        | Browsing to the resource should be done with extra caution.                                                                                 | Low             | High/Critical |
-| Risk=80        | There are circumstantial evidences that ties the resource to malicious activity.                                                            | Medium          | High/Critical |
-| Risk=100       | Known malicious resource by at least one trusted vendors.                                                                                   | High            | High/Critical |
+| **Risk Range** | **Description**                                                                      | **Confidence**  | **Severity**  | **Recommended Action**  |
+| -------------- | ------------------------------------------------------------------------------------ | --------------- | ------------- | ----------------------- |
+| Risk=0         | Indications of a legit website.                                                      | High            | N/A           | Allow list              |
+| Risk=34        | Unclassified.                                                                        | Low/Medium/High | Low/Medium    | N/A                     |
+| Risk=50        | Anonymizers, hosting and parked websites, Unknown files.                             | Medium/High     | Medium        | N/A                     |
+| Risk=64        | Browsing to the resource should be done with extra caution.                          | Low             | High/Critical | Caution                 |
+| Risk=80        | There are circumstantial evidences that ties the resource to malicious activity.     | Medium          | High/Critical | Block                   |
+| Risk=100       | Known malicious resource by at least one trusted vendors.                            | High            | High/Critical | Block                   |
