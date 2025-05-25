@@ -42,8 +42,8 @@ Usage: <main class> [options]
 ```
 
 ```
-# java -jar reputation-service-api-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key>
-  https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ is Phishing with risk 100/100
+# java -jar reputation-service-api-1.0.0.jar -s url -r https://m.swiki.playmarket-googles.com -ck <client-Key>
+  https://m.swiki.playmarket-googles.com is Infecting URL with risk 100/100
 ```
 
 ### With `--verbose`
@@ -90,45 +90,50 @@ your response is:
 8.8.8.8 is Benign with risk 0/100
 ```
 ```
-# java -jar reputation-service-api-1.0.0.jar -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-Key> -v
+# java -jar reputation-service-api-1.0.0.jar -s url -r https://m.swiki.playmarket-googles.com -ck <client-Key> -v
   first, let's get token from rep-auth
   success!
   now, let's query reputation
   success!
   your response is:
   {
-    "response" : [ {
-      "status" : {
-        "code" : 2001,
-        "label" : "SUCCESS",
-        "message" : "Succeeded to generate reputation"
-      },
-      "resource" : "https://secure08c-chase.000webhostapp.com/web/auth/enrollment/",
-      "reputation" : {
-        "classification" : "Phishing",
-        "severity" : "High",
-        "confidence" : "High"
-      },
-      "risk" : 100,
-      "context" : {
-        "categories" : [ {
-          "id" : 1,
-          "name" : "Computers / Internet"
-        } ],
-        "google_safe_browsing_categories" : [ "SOCIAL_ENGINEERING" ],
-        "phishing" : {
-          "brand" : "Chase",
-          "type" : "Banking",
-          "domain" : "chase.com"
+    "response": [
+      {
+        "status": {
+          "code": 2001,
+          "label": "SUCCESS",
+          "message": "Succeeded to generate reputation"
         },
-        "protection_name" : "Phishing.TC.twxqx",
-        "indications" : [ "12 vendors detected this URL in VirusTotal", "Google found social engineering activity on this url", "The domain name resembles the chase official website", "The URL is malicious by Check Point's Threat Cloud", "VirusTotal vendors detected malicious URLs of the domain", "The IP address is involved with malicious activity", "The domain is hosted on IP address associated with malicious activity", "URL path is involved with malicious activity", "Found a phishing file downloaded from domain" ],
-        "vt_positives" : 12,
-        "alexa_rank" : 7397,
-        "registrant" : "hostmaster@hostinger.com",
-        "creation_date" : "2016:05:11 00:00:00"
+        "resource": "https://m.swiki.playmarket-googles.com",
+        "reputation": {
+          "classification": "Infecting URL",
+          "severity": "High",
+          "confidence": "High"
+        },
+        "risk": 100,
+        "context": {
+          "categories": [
+            {
+                "id": 31,
+                "name": "Phishing"
+            }
+          ],
+          "vt_categories": [
+              "phishing and fraud",
+              "phishing and other frauds",
+              "phishing (alphamountain.ai)"
+          ],
+          "protection_name": "Phishing.TC.twxqx",
+          "indications": [
+              "Known compromised domain",
+              "Known malicious website"
+          ]
+          "vt_positives": 17,
+          "registrant": "b20dfac919550647s@",
+          "creation_date": "2024-03-01"
+        }
       }
-    } ]
+    ]
   }
-  https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ is Phishing with risk 100/100
+  https://m.swiki.playmarket-googles.com is Infecting URL with risk 100/100
 ```
