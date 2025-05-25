@@ -29,14 +29,14 @@ Options:
 ### Simple use
 
 ```
-# reputation-api -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-key>
-https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ is Phishing with risk 100/100
+# reputation-api -s url -r https://m.swiki.playmarket-googles.com -ck <client-key>
+https://m.swiki.playmarket-googles.com is Phishing with risk 100/100
 ```
 
 ### With `--verbose`
 
 ```
-# reputation-api -s url -r https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ -ck <client-key> -v
+# reputation-api -s url -r https://m.swiki.playmarket-googles.com -ck <client-key> -v
 first, let's get token from rep-auth
 success!
 now, let's query reputation
@@ -50,9 +50,9 @@ your response is:
         "label": "SUCCESS",
         "message": "Succeeded to generate reputation"
       },
-      "resource": "https://secure08c-chase.000webhostapp.com/web/auth/enrollment/",
+      "resource": "https://m.swiki.playmarket-googles.com",
       "reputation": {
-        "classification": "Phishing",
+        "classification": "Infecting URL",
         "severity": "High",
         "confidence": "High"
       },
@@ -60,38 +60,27 @@ your response is:
       "context": {
         "categories": [
           {
-            "id": 1,
-            "name": "Computers / Internet"
+              "id": 31,
+              "name": "Phishing"
           }
         ],
-        "google_safe_browsing_categories": [
-          "SOCIAL_ENGINEERING"
+        "vt_categories": [
+            "phishing and fraud",
+            "phishing and other frauds",
+            "phishing (alphamountain.ai)"
         ],
-        "phishing": {
-          "brand": "Chase",
-          "type": "Banking",
-          "domain": "chase.com"
-        },
         "protection_name": "Phishing.TC.twxqx",
         "indications": [
-          "12 vendors detected this URL in VirusTotal",
-          "Google found social engineering activity on this url",
-          "The domain name resembles the chase official website",
-          "The URL is malicious by Check Point's Threat Cloud",
-          "VirusTotal vendors detected malicious URLs of the domain",
-          "The IP address is involved with malicious activity",
-          "The domain is hosted on IP address associated with malicious activity",
-          "URL path is involved with malicious activity",
-          "Found a phishing file downloaded from domain"
-        ],
-        "vt_positives": 12,
-        "alexa_rank": 7397,
-        "registrant": "hostmaster@hostinger.com",
-        "creation_date": "2016:05:11 00:00:00"
+            "Known compromised domain",
+            "Known malicious website"
+        ]
+        "vt_positives": 17,
+        "registrant": "b20dfac919550647s@",
+        "creation_date": "2024-03-01"
       }
     }
   ]
 }
 
-https://secure08c-chase.000webhostapp.com/web/auth/enrollment/ is Phishing with risk 100/100
+https://m.swiki.playmarket-googles.com is Phishing with risk 100/100
 ```
