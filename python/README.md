@@ -30,7 +30,7 @@ Options:
 
 ```
 # reputation-api -s url -r https://m.swiki.playmarket-googles.com -ck <client-key>
-https://m.swiki.playmarket-googles.com is Phishing with risk 100/100
+https://m.swiki.playmarket-googles.com is Infecting URL with risk 100/100
 ```
 
 ### With `--verbose`
@@ -82,5 +82,5 @@ your response is:
   ]
 }
 
-https://m.swiki.playmarket-googles.com is Phishing with risk 100/100
+https://m.swiki.playmarket-googles.com is Infecting URL with risk 100/100
 ```
