@@ -1,24 +1,13 @@
 # Check Point Reputation Service API
 
-  - [Overview](#overview)  
+  - [What can you expect to get from the APIs](#what-can-you-expect-to-get-from-the-apis)  
   - [Getting Started with the Reputation Service API](#getting-started-with-the-reputation-service-api)
-    - [Get your API Key](#get-your-api-key)
-  - [Swagger](#swagger)
-  - [APIs](#apis)
-    - [Rep-Auth Service](#rep-auth-service)
-        - [How to generate a token?](#how-to-generate-a-token)
-    - [URL Reputation Service](#url-reputation-service)
-        - [Request](#request)
-        - [URL classifications](#url-classifications)
-    - [File Reputation Service](#file-reputation-service)
-        - [Request](#request-1)
-        - [File classifications](#file-classifications)
-    - [IP Reputation Service](#ip-reputation-service)
-        - [Request](#request-2)
-        - [IP classifications](#ip-classifications)
-    - [Response](#response)
-        - [Response Status Codes](#response-status-codes)
-    - [Risk Threshold Guide](#risk-threshold-guide)
+    - [Get your API Key from us](#get-your-api-key)
+  - [Swagger - for easy API usage and reference](#swagger)
+  - [How to generate an authentication token?](#authentication)
+  - [The services APIs](#the-services-apis)
+  - [Response](#response)
+      - [Response Status Codes](#response-status-codes)
 
 ## **Overview**
 
@@ -29,6 +18,26 @@ Leverage **Check Point’s** threat intelligence to enrich your SIEM and SOAR so
 - [**URL Reputation**](#url-reputation-service) - Returns the classification and associated risk of accessing a given **domain or URL**.
 - [**File Reputation**](#file-reputation-service) - Returns the risk level of downloading a file based on its **hash (MD5/SHA1/SHA256)**.
 - [**IP Reputation**](#ip-reputation-service) - Returns the classification and associated risk of accessing a resource hosted on a given **IP address**.
+
+
+## What can you expect to get from the APIs
+
+An important field from the response is the assessed risk of accessing the queried resource.
+Each risk (0-100) is accompanied with the **Confidence** and the **Severity**, and our **Recommended Action**.
+
+**Risk Threshold Guide**
+
+| **Risk Range** | **Description**                                                                      | **Confidence**  | **Severity**  | **Recommended Action**  |
+| -------------- | ------------------------------------------------------------------------------------ | --------------- | ------------- | ----------------------- |
+| Risk=0         | Indications of a legit website.                                                      | High            | N/A           | Allow list              |
+| Risk=34        | The service couldn't classify the domain. not enough data for this resource.         | Low/Medium/High | Low/Medium    | N/A                     |
+| Risk=50        | Anonymizers, hosting and parked websites, Unknown files.                             | Medium/High     | Medium        | N/A                     |
+| Risk=64        | Browsing to the resource should be done with extra caution.                          | Low             | High/Critical | Caution                 |
+| Risk=80        | There are circumstantial evidences that ties the resource to malicious activity.     | Medium          | High/Critical | Block                   |
+| Risk=100       | Known malicious resource by at least one trusted vendors.                            | High            | High/Critical | Block                   |
+
+Further context details like **Classification**, **Categories**, **Popularity** and more can be found in the full json [Response](#response).
+Expect different fields corresponding to the service type you choose (URL / IP / FILE).
 
 ## Getting Started with the Reputation Service API  
 
@@ -41,7 +50,7 @@ We will provide you with a trial API key along with a daily quota. If you exceed
 
 Check out our [Swagger UI](https://app.swaggerhub.com/apis-docs/Check-Point/reputation-service/) to easily explore and use the API.
 
-## APIs
+## Authentication
 
 ### **Rep-Auth Service**
 
@@ -59,6 +68,8 @@ To generate a token, send an **HTTPS GET** request to the following endpoint: <h
 **How do I know that the token has expired?**
 
 If your token has expired, the service will respond with an **HTTP 403 Forbidden** status code.
+
+## The services APIs
 
 ### **URL Reputation Service**
 
@@ -275,14 +286,3 @@ request body, use JSON format:
 | 400                    | Bad request - either the resource is not valid or the request parameter doesn't match the resource in the request body |
 | 401                    | Bad or missing "Client-Key" header                                                                                     |
 | 403                    | Bad or missing "token" header                                                                                          |
-
-## **Risk Threshold Guide**
-
-| **Risk Range** | **Description**                                                                      | **Confidence**  | **Severity**  | **Recommended Action**  |
-| -------------- | ------------------------------------------------------------------------------------ | --------------- | ------------- | ----------------------- |
-| Risk=0         | Indications of a legit website.                                                      | High            | N/A           | Allow list              |
-| Risk=34        | Unclassified.                                                                        | Low/Medium/High | Low/Medium    | N/A                     |
-| Risk=50        | Anonymizers, hosting and parked websites, Unknown files.                             | Medium/High     | Medium        | N/A                     |
-| Risk=64        | Browsing to the resource should be done with extra caution.                          | Low             | High/Critical | Caution                 |
-| Risk=80        | There are circumstantial evidences that ties the resource to malicious activity.     | Medium          | High/Critical | Block                   |
-| Risk=100       | Known malicious resource by at least one trusted vendors.                            | High            | High/Critical | Block                   |
