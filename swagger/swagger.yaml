@@ -64,18 +64,10 @@ info:
                           "id": 24,
                           "name": "News / Media"
                       }
-                  ],
-                  "vt_categories": [
-                      "news",
-                      "news and media"
-                  ],
+                  ]
                   "alexa_rank": 1100,
-                  "creation_date": "2001:01:07 00:00:00",
-                  "vt_positives": 0,
                   "indications": [
                       "The URL is known benign by Check Point's Threat Cloud",
-                      "The domain’s Alexa rank is 1100",
-                      "The domain’s Tranco rank is 1200",
                       "The domain is popular in the world",
                       "Domain is classified as News / Media"
                   ],
@@ -273,16 +265,6 @@ components:
         categories:
           type: array
           description: URLF categories (URL)
-          items:
-            type: string
-        vt_categories:
-          type: array
-          description: Virus Total categories (URL)
-          items:
-            type: string
-        alexa_rank:
-          type: number
-          description: Popularity rank (URL)
           items:
             type: string
         location:
