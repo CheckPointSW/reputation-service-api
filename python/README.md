@@ -64,19 +64,11 @@ your response is:
               "name": "Phishing"
           }
         ],
-        "vt_categories": [
-            "phishing and fraud",
-            "phishing and other frauds",
-            "phishing (alphamountain.ai)"
-        ],
         "protection_name": "Phishing.TC.twxqx",
         "indications": [
             "Known compromised domain",
             "Known malicious website"
         ]
-        "vt_positives": 17,
-        "registrant": "b20dfac919550647s@",
-        "creation_date": "2024-03-01"
       }
     }
   ]
